@@ -16,8 +16,13 @@ function MainContainer() {
   function handleAddStock(selectedStock) {
     const stockInPortfolio = portfolio.find(stock => stock.id === selectedStock.id)
     if(!stockInPortfolio) {
-      setPortfolio([...portfolio, selectedStock])  
-    }
+      setPortfolio([...portfolio, selectedStock]) 
+    }  
+  }
+
+  function handleDeleteStock(deletedStock) {
+    const updatedList = portfolio.filter(stock => stock.id !== deletedStock.id)
+    setPortfolio(updatedList)
   }
   
   return (
@@ -25,10 +30,10 @@ function MainContainer() {
       <SearchBar />
       <div className="row">
         <div className="col-8">
-          <StockContainer stocks={stocks} onStockClick={handleAddStock}/>
+          <StockContainer stocks={stocks} onAddStock={handleAddStock}/>
         </div>
         <div className="col-4">
-          <PortfolioContainer />
+          <PortfolioContainer stocks={portfolio} onDeleteStock={handleDeleteStock}/>
         </div>
       </div>
     </div>
